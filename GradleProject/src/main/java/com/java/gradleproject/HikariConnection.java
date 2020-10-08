@@ -7,9 +7,9 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class HikariConnection {
 
-	static Connection con = null;
-	static HikariConfig config;
-	static HikariDataSource ds ;
+	private static Connection con = null;
+	private static HikariConfig config;
+	private static HikariDataSource ds ;
 
 
 
