@@ -1,4 +1,4 @@
-package com.java.connection;
+package com.zversal.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -11,45 +11,56 @@ import com.zaxxer.hikari.HikariDataSource;
 //need to make this class as singleton (for this we need to do 3 things)
 
 public class HikariConnection {
-	
-	private static HikariConnection hikariobj = new HikariConnection() ;
-	private  Connection con = null;
+
+	private static HikariConnection hikariobj;
 	private  HikariConfig config;
 	private  HikariDataSource ds ;
-	
+
 	private HikariConnection()
 	{
-		if(con == null)
+		if(hikariobj == null)
 		{
 			String configFile = "resources/db.properties";
-			
+
 			config = new HikariConfig(configFile);
 
 			ds = new HikariDataSource(config);
 
 			try 
 			{
-				con = ds.getConnection();	
+				ds.getConnection();	
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-    public static HikariConnection getInstance()
-    {
-    	return hikariobj;
-    }
+
+	public static HikariConnection getInstance()
+	{
+		synchronized(HikariConnection.class)
+		{
+			if(hikariobj == null)
+			{
+				hikariobj = new HikariConnection();
+			}
+		}
+		return hikariobj;
+	}
 
 	public Connection getConnection()
 	{
-		try {
-			con = ds.getConnection();
-		} catch (SQLException e) {
+		try
+		{
+			Connection con = ds.getConnection();
+			return con;
+		}
+		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return con;
+
+		return null;
 	}
+
 
 }

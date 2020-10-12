@@ -1,4 +1,4 @@
-package com.java.pojo;
+package com.zversal.pojo;
 
 public class Student {
 	

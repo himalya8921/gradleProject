@@ -1,4 +1,4 @@
-package com.java.connection;
+package com.zversal.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,10 +8,10 @@ public class GetConnection {
 	
 	static Connection con = null;
 	
-	static Connection getConnection() throws SQLException, ClassNotFoundException
+	public static Connection getConnection() throws SQLException, ClassNotFoundException
 	{
 		
-	String url = "jdbc:mysql://localhost:3306/aliens";
+	String url = "jdbc:p6spy:mysql://localhost:3306/aliens";
 	String user = "root";
 	String password = "MyNewPass";
 	
